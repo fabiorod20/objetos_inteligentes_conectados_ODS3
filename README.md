@@ -11,6 +11,15 @@ Projeto da disciplina **Objetos Inteligentes Conectados** · Universidade Presbi
 - **Vídeo de apresentação:** _[link do YouTube]_
 - **Artigo:** _[link ou PDF em `docs/`]_
 
+### O que tem neste repositório
+
+| Pasta | Conteúdo |
+|---|---|
+| [`firmware/`](firmware/) | Código do ESP32 (`sketch.ino`), circuito do Wokwi (`diagram.json`) e bibliotecas |
+| [`node-red/`](node-red/) | Fluxo da central de monitoramento (importar no Node-RED) |
+| [`aws/`](aws/) | Script que instala o Node-RED na instância EC2 |
+| [`docs/`](docs/) | Fluxograma e diagrama de montagem |
+
 ---
 
 ## 1. Como funciona
@@ -97,10 +106,16 @@ Exemplo de mensagem:
 4. Ou digite no Monitor Serial: `1` (40 km/h), `2` (65 km/h), `3` (90 km/h), `4` (tempos médios).
 
 **Central (Node-RED na AWS):**
-1. Crie uma instância EC2 Ubuntu e libere a porta **1880/TCP** no Security Group.
-2. Na instância: `bash instalar-node-red.sh` (instala Node.js, Node-RED, Dashboard 2.0 e cria o serviço).
-3. Abra `http://<IP-da-instância>:1880` → menu ☰ → **Import** → cole o conteúdo de `node-red/flows.json` → **Deploy**.
-4. Dashboard: `http://<IP-da-instância>:1880/dashboard`.
+1. No AWS Academy Learner Lab, crie uma instância EC2 **Ubuntu Server**, tipo **t2.medium**, com SSH, HTTP e HTTPS liberados.
+2. No Security Group da instância, adicione uma regra de entrada *Custom TCP* na porta **1880**.
+3. No terminal da instância (EC2 Instance Connect):
+   ```bash
+   curl -fsSLO https://raw.githubusercontent.com/fabiorod20/objetos_inteligentes_conectados_ODS3/main/aws/instalar-node-red.sh
+   bash instalar-node-red.sh
+   ```
+   O script atualiza o Ubuntu e instala nvm, Node.js, Node-RED, Dashboard 2.0 e pm2 (o Node-RED volta sozinho após reinício).
+4. Abra `http://<IP-público>:1880` → menu ☰ → **Import** → cole o conteúdo de `node-red/flows.json` → **Deploy**.
+5. Dashboard: `http://<IP-público>:1880/dashboard`.
 
 **Ver o broker funcionando:** com o MQTT Explorer (ou outro cliente MQTT), conecte em `test.mosquitto.org:1883`
 e abra o tópico `MACK10433738/#`.
