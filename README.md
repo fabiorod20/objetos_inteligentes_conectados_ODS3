@@ -69,15 +69,15 @@ física, basta trocar os botões pelos sensores, sem mudar o código.
 | Central de monitoramento | **Node-RED** + Dashboard 2.0 (`@flowfuse/node-red-dashboard`) | [`node-red/flows.json`](node-red/flows.json) |
 | Servidor da central | **AWS EC2** (Ubuntu) | [`aws/instalar-node-red.sh`](aws/instalar-node-red.sh) |
 
-O código está comentado por blocos: pinos, regras, rede, recepção MQTT, Wi-Fi, conexão e publicação MQTT,
-classificação, cálculo, modo de teste, `setup()` e `loop()`.
+O código segue a estrutura usada nas aulas: configurações no topo, `callback` (mensagens recebidas do broker),
+reconexão ao broker, `medirVelocidade()` (cálculo, atuadores e publicação), `setup()` e `loop()`.
 
 ## 4. Comunicação: Wi-Fi (TCP/IP) e MQTT
 
 - **Wi-Fi:** o ESP32 conecta como estação (`WIFI_STA`) na rede `Wokwi-GUEST` do simulador, que dá acesso à internet.
 - **Protocolo:** MQTT 3.1.1 sobre TCP, modelo publish/subscribe, biblioteca PubSubClient.
 - **Broker:** `test.mosquitto.org`, porta `1883` (broker público, sem autenticação).
-- **Reconexão automática:** Wi-Fi a cada 10 s e MQTT a cada 5 s, sem travar a leitura dos sensores.
+- **Reconexão automática:** o ESP32 tenta o broker a cada 5 s sem travar a leitura dos sensores.
 
 | Tópico | Quem publica | Quem assina | Conteúdo |
 |---|---|---|---|
@@ -88,7 +88,7 @@ classificação, cálculo, modo de teste, `setup()` e `loop()`.
 Exemplo de mensagem:
 
 ```json
-{"id":3,"velocidade":90.00,"limite":60.00,"percentual_excesso":50.00,"status":"CRITICO","tempo_atuador_us":42}
+{"velocidade":90.00,"limite":60.00,"percentual_excesso":50.00,"status":"CRITICO"}
 ```
 
 ### Fluxo no Node-RED
@@ -103,7 +103,7 @@ Exemplo de mensagem:
 1. Abra o projeto no Wokwi (link acima) ou crie um projeto ESP32 e cole `sketch.ino`, `diagram.json` e `libraries.txt`.
 2. Clique em ▶. No Monitor Serial deve aparecer `Wi-Fi conectado!` e `Conectando ao broker MQTT... conectado!`.
 3. Aperte o botão de cima (Sensor 1) e depois o de baixo (Sensor 2). Quanto mais rápido, maior a velocidade.
-4. Ou digite no Monitor Serial: `1` (40 km/h), `2` (65 km/h), `3` (90 km/h), `4` (tempos médios).
+4. Ou digite no Monitor Serial: `1` (40 km/h), `2` (65 km/h), `3` (90 km/h).
 
 **Central (Node-RED na AWS):**
 1. No AWS Academy Learner Lab, crie uma instância EC2 **Ubuntu Server**, tipo **t2.medium**, com SSH, HTTP e HTTPS liberados.
@@ -122,10 +122,9 @@ e abra o tópico `MACK10433738/#`.
 
 ## 6. Medição dos tempos de resposta
 
-O firmware mede e mostra no Monitor Serial (comando `4` mostra as médias):
+A cada medição o firmware mostra no Monitor Serial:
 
 - **Detecção → atuador:** do sensor 2 até o acionamento dos LEDs e do buzzer (µs).
-- **Envio MQTT:** duração da chamada `publish()` (ms).
 - **Ida e volta MQTT:** ESP32 → broker → ESP32, usando o eco do próprio tópico de dados (ms).
 
 Os valores medidos estão na seção de Resultados do artigo.
