@@ -7,7 +7,7 @@ O ESP32 calcula a velocidade, compara com o limite da via, aciona LEDs e buzzer 
 
 Projeto da disciplina **Objetos Inteligentes Conectados** · Universidade Presbiteriana Mackenzie · 2026/2
 
-- **Simulação no Wokwi:** https://wokwi.com/projects/478370178679366657
+- **Simulação no Wokwi:** https://wokwi.com/projects/481581609051616257
 - **Vídeo de apresentação:** _[link do YouTube]_
 - **Artigo:** _[link ou PDF em `docs/`]_
 
@@ -41,6 +41,16 @@ Projeto da disciplina **Objetos Inteligentes Conectados** · Universidade Presbi
 6. Pelo dashboard, o botão **Resetar sinalização** envia `RESET` ao ESP32, que apaga LEDs e buzzer (comando remoto pela internet).
 
 > O limite crítico de 30% é uma regra experimental do protótipo, não uma classificação legal de infração.
+
+### Funcionando
+
+Painel do Node-RED (na AWS) recebendo as medições do ESP32 simulado no Wokwi:
+
+![Dashboard](docs/print-dashboard.jpg)
+
+Fluxo no Node-RED:
+
+![Fluxo Node-RED](docs/print-node-red.jpg)
 
 ## 2. Hardware
 
