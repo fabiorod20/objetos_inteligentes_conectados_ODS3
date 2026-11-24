@@ -125,6 +125,7 @@ void setup() {
   WiFi.begin(ssid, senha, 6);
   client.setServer(broker, porta);
   client.setCallback(callback);
+  client.setKeepAlive(60);   // evita queda da conexao quando a simulacao fica lenta
 
   Serial.println("Sistema iniciado. Teste pelo Serial: 1 = 40 km/h, 2 = 65 km/h, 3 = 90 km/h");
 }
