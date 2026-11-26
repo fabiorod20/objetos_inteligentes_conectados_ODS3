@@ -8,8 +8,7 @@ O ESP32 calcula a velocidade, compara com o limite da via, aciona LEDs e buzzer 
 Projeto da disciplina **Objetos Inteligentes Conectados** · Universidade Presbiteriana Mackenzie · 2026/2
 
 - **Simulação no Wokwi:** https://wokwi.com/projects/481581609051616257
-- **Vídeo de apresentação:** _[link do YouTube]_
-- **Artigo:** _[link ou PDF em `docs/`]_
+- **Vídeo de apresentação:** https://youtu.be/nB-RlylkOhQ
 
 ### O que tem neste repositório
 
