@@ -9,6 +9,7 @@ Projeto da disciplina **Objetos Inteligentes Conectados** · Universidade Presbi
 
 - **Simulação no Wokwi:** https://wokwi.com/projects/481581609051616257
 - **Vídeo de apresentação:** https://youtu.be/nB-RlylkOhQ
+- **Artigo (PDF):** [`docs/artigo.pdf`](docs/artigo.pdf)
 
 ### O que tem neste repositório
 
@@ -17,7 +18,7 @@ Projeto da disciplina **Objetos Inteligentes Conectados** · Universidade Presbi
 | [`firmware/`](firmware/) | Código do ESP32 (`sketch.ino`), circuito do Wokwi (`diagram.json`) e bibliotecas |
 | [`node-red/`](node-red/) | Fluxo da central de monitoramento (importar no Node-RED) |
 | [`aws/`](aws/) | Script que instala o Node-RED na instância EC2 |
-| [`docs/`](docs/) | Fluxograma e diagrama de montagem |
+| [`docs/`](docs/) | Artigo em PDF, fluxograma, diagrama de montagem e prints |
 
 ---
 
